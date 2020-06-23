@@ -1,0 +1,81 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block site_title %}
+{% trans "Orders List" %}
+{% endblock %}
+{% block content %}
+
+{% include 'main/extra/breadcrumb.html' %}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-9">
+                <div class="shiping-methods">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Latest Orders</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">id</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">City</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if orders %}
+                                {% for order in orders %}
+                                <tr>
+                                    <td class="price text-center">{{ order.id }}</td>
+                                    <td class="price text-center">{{ order.create_at }}</td>
+                                    <td class="qty text-center">{{ order.city|title }}</td>
+                                    <td class="price text-center">{{ order.phone }}</td>
+                                    <td class="total text-center"><strong class="primary-color">$
+                                            {{ order.total }}</strong></td>
+                                    <td class="total text-center"> {{ order.status }}</td>
+                                    <td class="text-center-order"><a
+                                            href="{% url 'order:checkout_complete' order.id %}"><strong>Detail</strong></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td class="text-center"><h3>No orders.</h3></td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                            
+                        </table>
+                        <a class="site-btn order-complete-btn" href="{% url 'main:featured_books_list' %}">CONTINUE SHOPPING</a>
+                        <a class="site-btn order-complete-btn" href="{% url 'order:shoping_cart' %}">MY CART</a>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+{% endblock %}

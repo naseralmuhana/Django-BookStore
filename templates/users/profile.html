@@ -1,0 +1,121 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block site_title %}
+{% trans "User Profile" %}
+{% endblock %}
+
+{% block content %}
+{% include 'main/extra/breadcrumb.html' %}
+
+<div class="buster-light">
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width">
+                {% for profile in profiles %}
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="user-information">
+                        <div class="user-img">
+                            <a href="#"><img
+                                    src="/media/{% if profile.image %}{{ profile.image }}{% else %}default.png{% endif %}"
+                                    alt=""><br></a>
+                            <!-- <a href="#" class="redbtn">Change avatar</a> -->
+                        </div>
+                        <div class="user-fav">
+                            <p>Account Details</p>
+                            <ul>
+                                <li class="active"><a href="#">Profile</a></li>
+                                <li><a href="{% url 'main:favourite_books_list' slug=user.username %}">Favorite
+                                        Books</a></li>
+                                <li><a href="{% url 'order:orders_list' %}">My Orders</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="user-fav">
+                            <p>Others</p>
+                            <ul>
+                                <li><a href="{% url 'users:change_password'  %}">Change password</a></li>
+                                <li><a href="{% url 'users:logout'  %}">Log out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="form-style-1 user-pro" action="#">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+                            role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <h4>User details</h4>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>Username</label>
+                                <input type="text" value="{{ user.username }}" name="username" disabled>
+                            </div>
+                            <div class="col-md-6 form-it">
+                                <label>Email Address</label>
+                                <input type="text"
+                                    value="{% if user.email %}{{ user.email }}{% else %}Your@email.com{% endif %}"
+                                    name="email" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>First Name</label>
+                                <input type="text" value="{{ user.first_name }}" name="first_name" disabled>
+                            </div>
+                            <div class="col-md-6 form-it">
+                                <label>Last Name</label>
+                                <input type="text" value="{{ user.last_name }}" name="last_name" disabled>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <h4>Address details</h4>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>Phone</label>
+                                <input type="text" value="{{ profile.phone }}" name="phone" disabled>
+                            </div>
+                            <div class="col-md-6 form-it">
+                                <label>Zip Code</label>
+                                <input type="text" value="{{ profile.zip_code }}" name="zip_code" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-it">
+                                <label>Address</label>
+                                <input type="text" value="{{ profile.address }}" name="address" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>Country</label>
+                                <input type="text" value="{{ profile.country }}" name="country" disabled>
+                            </div>
+                            <div class="col-md-6 form-it">
+                                <label>City</label>
+                                <input type="text" value="{{ profile.city }}" name="city" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="{% url 'users:profile_update' %}"><input class="submit" type="submit"
+                                        value="Update Profile"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,220 @@
+<div class="tab-pane" id="tabs-2" role="tabpanel">
+    <div class="product__details__tab__desc">
+        <h6>Reviews</h6>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-6">
+                <div class="well well-sm">
+                    <div class="text-right">
+                        <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a
+                            Review</a>
+                    </div>
+                    {% if user_comment %}
+                    <div class="row" id="post-review-box" style="display:none;">
+                        <div class="col-md-12">
+                            <h4>You have a review for this book, only one review for each user,
+                                if you wish you can edit your own review.
+                            </h4>
+                            <div class="text-right">
+                                <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
+                                    style="display:none; margin-right: 10px;">
+                                    <span class="fa fa-remove"></span>Cancel</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <div class="row" id="post-review-box" style="display:none;">
+                        <div class="col-md-12">
+                            <form action="{% url 'main:add_comment' book_details.id %}" method="POST">
+                                {% csrf_token %}
+                                <input id="ratings-hidden" name="rating" type="hidden">
+                                <textarea class="form-control animated" cols="50" id="new-review" name="message"
+                                    placeholder="Enter your review here..." rows="5"></textarea>
+
+                                <div class="text-right-rate">
+                                    <div class="stars starrr" data-rating="0"></div>
+                                    <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
+                                        style="display:none; margin-right: 10px;">
+                                        <span class="fa fa-remove"></span>Cancel</a>
+                                    <button class="btn btn-success btn-lg" type="submit"><span
+                                            class="fa fa-check"></span>Save</a></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row rating-system">
+                    <div class="side">
+                        <div>5 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-5" style="width: calc({{ rating_system.count }}% * {{ rating_system.star5 }});"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{ rating_system.star5 }}</div>
+                    </div>
+                    <div class="side">
+                        <div>4 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-4" style="width: calc({{ rating_system.count }}% * {{ rating_system.star4 }});"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{ rating_system.star4 }}</div>
+                    </div>
+                    <div class="side">
+                        <div>3 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-3" style="width: calc({{ rating_system.count }}% * {{ rating_system.star3 }});"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{ rating_system.star3 }}</div>
+                    </div>
+                    <div class="side">
+                        <div>2 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-2" style="width: calc({{ rating_system.count }}% * {{ rating_system.star2 }});"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{ rating_system.star2 }}</div>
+                    </div>
+                    <div class="side">
+                        <div>1 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-1" style="width: calc({{ rating_system.count }}% * {{ rating_system.star1 }});"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{ rating_system.star1 }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+        {% if book_comments %}
+        {% for comment in book_comments %}
+
+        {% if user.username == comment.user.username %}
+        <div class="book-user-review-item">
+            <div class="user-infor">
+                <div class="row">
+                    {% for profile in profiles %}
+                    {% if profile.user.username == comment.user.username %}
+                    <div class="col-md-2 comment-form">
+                        <img src="/media/{% if profile.image %}{{ profile.image }}{% else %}default.png{% endif %}"
+                            alt="" class="user-image-comment">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="col-md-3">
+                        <div class="no-star">
+                            <i class="fa fa-star{% if comment.rating >= 1 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 2 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 3 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 4 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 5 %} checked{% endif %}"></i>
+                            <!-- <i class="fa fa-star-outline"></i> -->
+                        </div>
+
+                        <p class="time">
+                            {{ comment.create_at }} by {{ comment.user.username }}
+                        </p>
+                    </div>
+                    <div class="col-md-7"></div>
+
+                </div>
+            </div>
+            <p>{{ comment.message }}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="well well-sm">
+
+                    <div class="text-right">
+                        <a class="btn btn-success" href="#edit-reviews-anchor" id="edit-open-review-box">edit</a>
+                    </div>
+                    <div class="row" id="edit-post-review-box" style="display:none;">
+                        <div class="col-md-12">
+                            <form action="{% url 'main:add_comment' book_details.id %}" method="POST">
+                                {% csrf_token %}
+                                <input id="edit-ratings-hidden" name="rating" type="hidden">
+                                <textarea class="form-control animated" cols="50" id="edit-new-review" name="message"
+                                    placeholder="Enter your new review here..." rows="5"></textarea>
+                                <div class="text-right">
+                                    <div class="stars starrr" data-rating="0"></div>
+                                    <button class="btn btn-success btn-lg" type="submit"><span
+                                            class="fa fa-check"></span>Save</a></button>
+                                    <a class="btn btn-danger btn-sm" href="#" id="edit-close-review-box"
+                                        style="display:none; margin-right: 10px;">
+                                        <span class="fa fa-remove"></span>Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+
+        <div class="book-user-review-item">
+            <div class="user-infor">
+                <div class="row">
+                    {% for profile in profiles %}
+                    {% if profile.user.username == comment.user.username %}
+                    <div class="col-md-2 comment-form">
+                        <img src="/media/{% if profile.image %}{{ profile.image }}{% else %}default.png{% endif %}"
+                            alt="" class="user-image-comment">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="col-md-3">
+                        <div class="no-star">
+                            <i class="fa fa-star{% if comment.rating >= 1 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 2 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 3 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 4 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 5 %} checked{% endif %}"></i>
+                            <!-- <i class="fa fa-star-outline"></i> -->
+                        </div>
+
+                        <p class="time">
+                            {{ comment.create_at }} by {{ comment.user.username }}
+                        </p>
+                    </div>
+                    <div class="col-md-7"></div>
+
+                </div>
+            </div>
+            <p>{{ comment.message }}</p>
+        </div>
+
+
+        {% endif %}
+        <br>
+        <hr>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+</div>

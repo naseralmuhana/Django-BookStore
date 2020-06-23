@@ -1,0 +1,74 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+{% include 'main/extra/breadcrumb.html' %}
+
+{% if categories_list %}
+<!-- Categories Section Begin -->.
+<section class="categories">
+    <div class="container">
+        <div class="row">
+                {% if categories %}
+                {% for category in categories %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="categories__item__type set-bg" data-setbg="/media/{{ category.image }}">
+                        <ul class="categories__item__pic__hover__type">
+                            <li><a href="{% url 'main:category_books_list' category.slug %}">{{ category.name }}</a></li>
+                        </ul>
+                        <!-- <h5><a href="#">{{ category.name }}</a></h5> -->
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+{% elif languages_list %}
+<!-- Categories Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+                {% if languages %}
+                {% for language in languages %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="categories__item__type set-bg" data-setbg="/media/{{ language.image }}">
+                        <ul class="languages__item__pic__hover__type">
+                            <li><a href="#">{{ language.name }}</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+{% elif authors_list %}
+<!-- Categories Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+                {% if authors %}
+                {% for author in authors %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="categories__item__type set-bg" data-setbg="/media/{{ author.image }}">
+                        <ul class="languages__item__pic__hover__type">
+                            <li><a href="#">{{ author.name }}</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+
+{% endif %}
+
+{% endblock %}

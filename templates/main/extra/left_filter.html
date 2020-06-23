@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load static %}
+
+<div class="sidebar">
+    <div class="hero__filter">
+        <div class="hero__filter__all">
+            <i class="fa fa-bars"></i>
+            <span>Sort By</span>
+        </div>
+        <ul>
+            <li><a href="{% url 'main:featured_books_list' %}">Featured Books</a></li>
+            <li><a href="{% url 'main:sales_off_books_list' %}">Sales Off</a></li>
+            <li><a href="{% url 'main:a_z_books_list' %}">A-Z</a></li>
+            <li><a href="{% url 'main:z_a_books_list' %}">Z-A</a></li>
+        </ul>
+    </div>
+    <div class="hero__categories">
+        <div class="hero__categories__all">
+            <i class="fa fa-bars"></i>
+            <span>All Categories ({{ categories.items|length }})</span>
+        </div>
+        <ul>
+            {% if categories %}
+            {% for category, books_count in categories.items %}
+            <li><a href="{% url 'main:category_books_list' category.slug %}">{{ category }} ({{ books_count }})</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="hero__authors">
+        <div class="hero__authors__all">
+            <i class="fa fa-bars"></i>
+            <span>All Authors ({{ authors.items|length }})</span>
+        </div>
+        <ul>
+            {% if authors %}
+            {% for author, books_count in authors.items %}
+            <li><a href="{% url 'main:author_books_list' author.slug %}">{{ author }} ({{ books_count }})</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="hero__languages">
+        <div class="hero__languages__all">
+            <i class="fa fa-bars"></i>
+            <span>All Languages ({{ languages.items|length }})</span>
+        </div>
+        <ul>
+            {% if languages %}
+            {% for language, books_count in languages.items %}
+            <li><a href="{% url 'main:language_books_list' language.slug %}">{{ language }} ({{ books_count }})</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="hero__years">
+        <div class="hero__years__all">
+            <i class="fa fa-bars"></i>
+            <span>All Years ({{ years.items|length }})</span>
+        </div>
+        <ul>
+            {% if years %}
+            {% for year, books_count in years.items %}
+            <li><a href="{% url 'main:year_books_list' year.slug %}">{{ year }} ({{ books_count }})</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>

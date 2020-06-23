@@ -1,0 +1,417 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Sales Off Section Begin -->
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="section-title">
+                    <h2>Sales off</h2>
+                    (<a href="{% url 'main:sales_off_books_list' %}">View all</a>)
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter">
+            {% if sales_off_books %}
+            {% for book in sales_off_books %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat fastasdfood">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg" data-setbg="/media/{{ book.image }}">
+                        {% if book.discount_price %}
+                        <div class="product__item__discount__percent">
+                            <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                        </div>
+                        {% endif %}
+                        <ul class="featured__item__pic__hover">
+                            {% if user in book.favourite.all %}
+                            <li>
+                                <a href="{% url 'main:favourite_book_add' book.id %}" title="Remove from favourites">
+                                    <i class="fa fa-heart heart-icon-fill"></i></a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'main:favourite_book_add' book.id %}" title="Add to favourites">
+                                    <i class="fa fa-heart-o"></i></a>
+                            </li>
+                            {% endif %}
+
+                            <li><a href="{% url 'order:add_to_cart' book.id %}" title="Add to carts">
+                                    <i class="fa fa-shopping-cart"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="item__pic__hover">
+                            <li><a href="{% url 'main:book_details' book.slug %}" title="Read more">
+                                    <i class="fa fa-info"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="featured__item__text">
+                        <h6><a href="{% url 'main:book_details' book.slug %}">{{ book.name }}</a></h6>
+                        {% if book.discount_price %}
+                        <div class="product__item__discount__price">
+                            <h5>${{ book.discount_price }} </h5><span>${{ book.price }}</span>
+                        </div>
+                        {% else %}
+                        <h5>${{ book.price }}</h5>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Sales off Section End -->
+
+<!-- Featured Section Begin -->
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="section-title">
+                    <h2>Featured Books </h2>
+                    (<a href="{% url 'main:featured_books_list' %}">View all</a>)
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter">
+            {% if featured_books %}
+            {% for book in featured_books %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat fastasdfood">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg" data-setbg="/media/{{ book.image }}">
+                        {% if book.discount_price %}
+                        <div class="product__item__discount__percent">
+                            <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                        </div>
+                        {% endif %}
+                        <ul class="featured__item__pic__hover">
+                            {% if user in book.favourite.all %}
+                            <li>
+                                <a href="{% url 'main:favourite_book_add' book.id %}" title="Remove from favourites">
+                                    <i class="fa fa-heart heart-icon-fill"></i></a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'main:favourite_book_add' book.id %}" title="Add to favourites">
+                                    <i class="fa fa-heart-o"></i></a>
+                            </li>
+                            {% endif %}
+
+                            <li><a href="{% url 'order:add_to_cart' book.id %}" title="Add to carts">
+                                    <i class="fa fa-shopping-cart"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="item__pic__hover">
+                            <li><a href="{% url 'main:book_details' book.slug %}" title="Read more">
+                                    <i class="fa fa-info"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="featured__item__text">
+                        <h6><a href="{% url 'main:book_details' book.slug %}">{{ book.name }}</a></h6>
+                        {% if book.discount_price %}
+                        <div class="product__item__discount__price">
+                            <h5>${{ book.discount_price }} </h5><span>${{ book.price }}</span>
+                        </div>
+                        {% else %}
+                        <h5>${{ book.price }}</h5>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Featured Section End -->
+
+<!-- Latest Product Section Begin -->
+<!-- <section class="latest-product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Latest Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Top Rated Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jp' %}g" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Review Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-1.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-2.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                            <a href="#" class="latest-product__item">
+                                <div class="latest-product__item__pic">
+                                    <img src="{% static 'img/latest-product/lp-3.jpg' %}" alt="">
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>Crab Pool Security</h6>
+                                    <span>$30.00</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- Latest Product Section End -->
+
+<!-- Blog Section Begin -->
+<!-- <section class="from-blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title from-blog__title">
+                    <h2>From The Blog</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="{% static 'img/blog/blog-1.jpg' %}" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="{% static 'img/blog/blog-2.jpg' %}" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="{% static 'img/blog/blog-3.jpg' %}" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Visit the clean farm in the US</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- Blog Section End -->
+
+{% endblock %}

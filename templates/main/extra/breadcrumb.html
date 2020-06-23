@@ -1,0 +1,64 @@
+{% load i18n %}
+{% load static %}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="{% static 'img/book_background.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <!-- <h2>Books Shop</h2> -->
+                    <div class="breadcrumb__option">
+                        <a href="{% url 'main:index' %}">Home</a>
+                        {% if category %}
+                        <a href="{% url 'main:categories_list' %}">Categories</a>
+                        <span>{{ category }}</span>
+                        {% elif language %}
+                        <a href="#">Languages</a>
+                        <span>{{ language }}</span>
+                        {% elif author %}
+                        <a href="#">Authors</a>
+                        <span>{{ author }}</span>
+                        {% elif book_details %}
+                        <a href="{% url 'main:featured_books_list' %}">Books</a>
+                        <span>{{ book_details.name }}</span>
+                        {% elif year %}
+                        <a href="#">Years</a>
+                        <span>{{ year }}</span>
+                        {% elif featured_books %}
+                        <span>Featured Books</span>
+                        {% elif sales_off_books %}
+                        <span>Sales Off Books</span>
+                        {% elif A_Z_books %}
+                        <span>Books(A to Z Sort)</span>
+                        {% elif Z_A_books %}
+                        <span>Books(Z to A Sort)</span>
+                        {% elif text %}
+                        <span>Search "{{ text }}"</span>
+                        {% elif shopcart_page %}
+                        <span>Shoping Cart</span>
+                        {% elif favourites %}
+                        <span>Favourite Books</span>
+                        {% elif checkout_page %}
+                        <span>Checkout</span>
+                        {% elif checkout_complete_page %}
+                        <span>Checkout Completed</span>
+                        {% elif orders %}
+                        <span>Lastest Order</span>
+                        {% elif comments %}
+                        <span>Comments</span>
+                        {% elif user_form %}
+                        <span>Update Profile</span>
+                        {% else %}
+                        <span>
+                            {{categories_list}}{{languages_list}}{{authors_list}}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->

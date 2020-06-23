@@ -1,0 +1,52 @@
+{% if books_paginator.has_other_pages %}
+
+<div class="pagination">
+    {% if books_paginator.has_previous %}
+    <a href="?page=1" title="First Page">&laquo;</a>
+    <a href="?page={{ books_paginator.previous_page_number }}" title="Previous Page">Previous</a>
+    {% endif %}
+
+    {% for num in books_paginator.paginator.page_range %}
+    {% if books_paginator.number == num %}
+    <a class="active" href="/?page={{ num }}" title="(Current Page) Page {{num}}">{{ num }}</a>
+    {% elif num > books_paginator.number|add:'-2' and num < books_paginator.number|add:'2'  %}
+    <a href="?page={{ num }}" title="Page {{num}}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if books_paginator.has_next %}
+    <a href="?page={{ books_paginator.next_page_number }}" title="Next Page">Next</a>
+    <a href="?page={{ books_paginator.paginator.num_pages }}" title="Last Page">&raquo;</a>
+    {% endif %}
+
+</div>
+
+{% elif is_paginated %}
+
+<div class="pagination">
+
+    {% if page_obj.has_previous %}
+    {% if page_obj.number > 2 %}
+    <a href="?page=1" title="First Page">&laquo;</a>
+    {% endif %}
+    <a href="?page={{ page_obj.previous_page_number }}" title="Previous Page">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="active" href="?page={{ num }}" title="(Current Page) Page {{num}}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2'  %}
+    <a href="?page={{ num }}" title="Page {{num}}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" title="Next Page">Next</a>
+    {% if page_obj.number > 2 %}
+    <a href="?page={{ page_obj.paginator.num_pages }}" title="Last Page">&raquo;</a>
+    {% endif %}
+    {% endif %}
+
+</div>
+
+{% endif %}

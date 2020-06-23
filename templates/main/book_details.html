@@ -1,0 +1,225 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block site_title %}
+{% trans "Book Details" %}
+{% endblock %}
+
+{% block css %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% endblock %}
+
+{% block content %}
+{% include 'main/extra/breadcrumb.html' %}
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="product__details__pic__item--large" src="/media/{{ book_details.image }}" alt="">
+                    </div>
+                    <!-- <div class="product__details__pic__slider owl-carousel">
+                        <img data-imgbigurl="img/product/details/product-details-2.jpg"
+                            src="img/product/details/product-details-1.jpg" alt="">
+                        <img data-imgbigurl="img/product/details/product-details-3.jpg"
+                            src="img/product/details/thumb-2.jpg" alt="">
+                        <img data-imgbigurl="img/product/details/product-details-5.jpg"
+                            src="img/product/details/thumb-3.jpg" alt="">
+                        <img data-imgbigurl="img/product/details/product-details-4.jpg"
+                            src="img/product/details/thumb-4.jpg" alt="">
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <div class="product__details__text">
+                    <h3>{{ book_details.name }}</h3>
+                    <div class="product__details__rating">
+
+                        <table class="videos">
+                            <tr>
+                                <td>
+                                    <div style="width: calc(((20% * {{ rating_average }})*94.7334)/100)"></div>
+                                    <img src="{% static 'img/stars.png' %}" alt="{{ rating_average }}"
+                                        title="{{ rating_average }}">
+                                </td>
+                                <td style="width: 220px;">
+                                    <span>(Average {{ rating_average }}/5 out of {{ book_comments.count }}
+                                        reviews)</span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    {% if book_details.discount_price %}
+                    <div class="product__item__discount__price">
+                        <div class="product__details__price">${{ book_details.discount_price }}</div>
+                        <div class='span_discount'><span>${{ book_details.price }}</span></div>
+                        <div class='span_discount_amount'><span>(Save ${{book_details.price_difference}})</span></div>
+                    </div>
+                    {% else %}
+                    <div class="product__details__price">${{ book_details.price }}</div>
+                    {% endif %}
+
+                    <ul>
+                        {% if book_details %}
+                        <li><b>By</b>
+
+                            {% for author in book_details.authors.all %}
+                            <a href="{% url 'main:author_books_list' author.slug %}"><span>{{ author }}</span></i></a>
+                            {% if forloop.counter < book_details.authors.all.count  %}
+                            <span>, </span>
+                            {% endif %}
+                            {% endfor %}
+
+                        </li>
+                        <li><b>Categories</b>
+
+                            {% for category in book_details.categories.all %}
+                            <a href="{% url 'main:category_books_list' category.slug %}"> <span> {{ category }} </span>
+                            </a>
+                            {% if forloop.counter < book_details.categories.all.count  %}
+                            <span>, </span>
+                            {% endif %}
+                            {% endfor %}
+
+                        </li>
+                        <li><b>Language</b>
+                            <a href="{% url 'main:language_books_list'  book_details.language.slug %}"> <span>
+                                    {{ book_details.language }} </span> </a>
+                        </li>
+                        <li><b>Pages</b> <span>{{ book_details.page }}</span></li>
+                        <li><b>Publication date</b>
+                            <span>
+                                {{ book_details.Publication_date.day }}/{{ book_details.Publication_date.month }}/
+                                <a href="{% url 'main:year_books_list'  book_details.year.slug %}">
+                                    {{ book_details.Publication_date.year }}
+                                </a>
+                            </span>
+                        </li>
+                        <li><b>Share on</b>
+                            <div class="share">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endif %}
+
+                    <form action="{% url 'order:add_to_cart' book_details.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" name="quantity" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="primary-btn primary-btn-add-to-cart">ADD TO CARD</button>
+
+                        {% if user in book_details.favourite.all %}
+                        <a href="{% url 'main:favourite_book_add' book_details.id %}" class="heart-icon"
+                            title="Remove from favourites">
+                            <span class="icon_heart"></span></a>
+                        {% else %}
+                        <a href="{% url 'main:favourite_book_add' book_details.id %}" class="heart-icon"
+                            title="Add to favourites">
+                            <span class="icon_heart_alt"></span></a>
+                        {% endif %}
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                aria-selected="false">Reviews <span>({{ book_comments.count }})</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Book Infomation</h6>
+                                <p>{{ book_details.description }}</p>
+                            </div>
+                        </div>
+                        {% include 'main/extra/review.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<!-- Related Product Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories__slider owl-carousel">
+                {% if related_books %}
+                {% for book in related_books %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix related-books">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="/media/{{ book.image }}">
+                            {% if book.discount_price %}
+                            <div class="product__item__discount__percent">
+                                <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                            </div>
+                            {% endif %}
+                            <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <!-- <li><a href="{% url 'main:book_details' book.slug %}"><i class="fa fa-book"></i></a></li> -->
+                                <li><a href="{% url 'order:add_to_cart' book.id %}"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                </li>
+                            </ul>
+                            <ul class="item__pic__hover">
+                                <li><a href="{% url 'main:book_details' book.slug %}"><i class="fa fa-info"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="{% url 'main:book_details' book.slug %}">{{ book.name }}</a></h6>
+                            {% if book.discount_price %}
+                            <div class="product__item__discount__price">
+                                <h5>${{ book.discount_price }} </h5><span>${{ book.price }}</span>
+                            </div>
+                            {% else %}
+                            <h5>${{ book.price }}</h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related Product Section End -->
+
+
+{% endblock %}
