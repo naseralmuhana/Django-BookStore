@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, DetailView, ListView
 
 import json
 from main import models
+from main import forms as main_forms
 from order.models import ShopCart
 from order.views import total_price
 from users import models as users_models
@@ -25,6 +26,7 @@ class HomePageView(TemplateView):
             '-Publication_date')[:6]
         context["sales_off_books"] = models.Book.objects.filter(
             discount_price__gt=0).order_by('-Publication_date')[:6]
+        context['rate'] = models.Comment.objects.all().order_by()
         context.update(total_price_items(self.request.user.id))
         return context
 
@@ -40,7 +42,8 @@ class FeaturedBooksListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FeaturedBooksListView, self).get_context_data(*args, **kwargs)
+        context = super(FeaturedBooksListView,
+                        self).get_context_data(*args, **kwargs)
         context['paginate_by'] = self.paginate_by
         context['count'] = self.count
         context.update(left_filter())
@@ -60,7 +63,8 @@ class SalesOffBooksListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
-        context = super(SalesOffBooksListView, self).get_context_data(*args, **kwargs)
+        context = super(SalesOffBooksListView,
+                        self).get_context_data(*args, **kwargs)
         context['paginate_by'] = self.paginate_by
         context['count'] = self.count
         context.update(left_filter())
@@ -79,7 +83,8 @@ class AtoZBooksListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
-        context = super(AtoZBooksListView, self).get_context_data(*args, **kwargs)
+        context = super(AtoZBooksListView, self).get_context_data(
+            *args, **kwargs)
         context['paginate_by'] = self.paginate_by
         context['count'] = self.count
         context.update(left_filter())
@@ -98,7 +103,8 @@ class ZtoABooksListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ZtoABooksListView, self).get_context_data(*args, **kwargs)
+        context = super(ZtoABooksListView, self).get_context_data(
+            *args, **kwargs)
         context['paginate_by'] = self.paginate_by
         context['count'] = self.count
         context.update(left_filter())
@@ -385,7 +391,7 @@ def favourite_books_list(request, slug):
 def user_comments_list(request):
 
     user_comments = models.Comment.objects.filter(
-        user_id=request.user.id)
+        user_id=request.user.id).order_by('-create_at')
     context = {
         'comments': 'exist',
         "user_comments": user_comments,
@@ -410,7 +416,8 @@ def comment_add(request, proid):
             data.message = form.cleaned_data['message']
             data.rating = form.cleaned_data['rating']
             data.save()
-            messages.success(request, "Your review has been sent. Thank You for your interest.")
+            messages.success(
+                request, "Your review has been sent. Thank You for your interest.")
             return HttpResponseRedirect(url)
         else:
             return redirect(url)
@@ -424,10 +431,12 @@ def delete_comment(request, proid):
 
     url = request.META.get('HTTP_REFERER')
     current_user = request.user
-    book_name = models.Comment.objects.filter(user_id=current_user.id, id=proid)[0]
+    book_name = models.Comment.objects.filter(
+        user_id=current_user.id, id=proid)[0]
     print(book_name)
-    models.Comment.objects.filter(user_id=current_user.id, id=proid ).delete()
-    messages.success(request, f"Your comment on '{book_name}' has been deleted.")
+    models.Comment.objects.filter(user_id=current_user.id, id=proid).delete()
+    messages.success(
+        request, f"Your comment on '{book_name}' has been deleted.")
     return HttpResponseRedirect(url)
 
 
@@ -551,3 +560,21 @@ def paginate_view(request, books):
         books_paginator = paginator.page(paginator.num_pages)
 
     return books_paginator
+
+
+from django.contrib.auth.decorators import user_passes_test
+
+@user_passes_test(lambda u: u.is_superuser)
+# forms for the admin, if he want to add Book.
+def add_book(request):
+ 
+    if request.method == "POST":
+        form = main_forms.AddBookForm(request.POST, request.FILES)
+        if form.is_valid():
+            add_book_form = form.save(commit=False)
+            add_book_form.save()
+            form.save_m2m()
+            return redirect('/')
+    else:
+        form = main_forms.AddBookForm()
+        return render(request, "main/admin_pages/add_record.html", {'form': form})

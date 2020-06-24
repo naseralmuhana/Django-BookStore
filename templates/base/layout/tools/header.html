@@ -28,6 +28,17 @@
                                 <li><a href="{% url 'main:years_list' %}">Years</a></li>
                             </ul>
                         </li>
+                        {% if user.is_superuser %}
+                        <li><a href="#">Admin</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{% url 'main:add_book' %}">Add Book</a></li>
+                                <li><a href="{% url 'main:categories_list' %}">Add Categories</a></li>
+                                <li><a href="#">Add Authors</a></li>
+                                <li><a href="{% url 'main:languages_list' %}">Add Languages</a></li>
+                                <li><a href="{% url 'main:years_list' %}">Add Years</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>

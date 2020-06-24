@@ -10,8 +10,8 @@ class Profile(models.Model):
     phone = models.CharField(max_length=15, blank=True)
     address = models.CharField(max_length=150, blank=True)
     zip_code = models.CharField(max_length=8, blank=True)
-    city = models.CharField(max_length=40)
-    country = models.CharField(max_length=40)
+    city = models.CharField(max_length=40, blank=True)
+    country = models.CharField(max_length=40, blank=True)
     image = models.ImageField(upload_to='profile_img', null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
 

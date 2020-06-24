@@ -119,6 +119,7 @@ class Comment(models.Model):
         return self.book.name
 
 
+
 # class for the form of the comment section. we can write it in the forms.py or here.
 class CommentForm(ModelForm):
     class Meta:
