@@ -20,16 +20,14 @@
                     <ul class="active_background">
                         <li><a href="{% url 'main:index' %}">Home</a></li>
                         <li><a href="{% url 'main:featured_books_list' %}">Books</a></li>
-                        <!-- <li><a href="#">Pages</a>
+                        <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">Shop Details</a></li>
-                                <li><a href="#">Shoping Cart</a></li>
-                                <li><a href="#">Check Out</a></li>
-                                <li><a href="#">Blog Details</a></li>
+                                <li><a href="{% url 'main:categories_list' %}">Categories</a></li>
+                                <li><a href="#">Authors</a></li>
+                                <li><a href="{% url 'main:languages_list' %}">Languages</a></li>
+                                <li><a href="{% url 'main:years_list' %}">Years</a></li>
                             </ul>
-                        </li> -->
-                        <!-- <li><a href="#">Blog</a></li> -->
-                        <!-- <li><a href="#">Contact</a></li> -->
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -37,7 +35,6 @@
                 <div class="user_cart">
                     <div class="header__cart">
                         <ul>
-
                             <li>
                                 {% if user.is_authenticated %}
                                 <a href="{% url 'main:favourite_books_list' slug=user.username %}">
@@ -56,6 +53,7 @@
                             <span>${% if user.is_authenticated %}{{total_price}}{% else %}0{% endif %}</span>
                         </div>
                     </div>
+
                     {% if user.is_authenticated %}
                     <div class="dropdown">
                         <button class="dropbtn"><i class='fa fa-user-circle fa-2x'></i></button>

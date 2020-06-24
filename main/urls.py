@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('categories', views.CategoriesListView.as_view(), name='categories_list'),
     path('languages', views.LanguagesListView.as_view(), name='languages_list'),
+    path('years', views.YearsListView.as_view(), name='years_list'),
     path('authors', views.AuthorsListView.as_view(), name='authors_list'),
     path('favourites/<slug>', views.favourite_books_list, name="favourite_books_list"),
     path('user-comments/', views.user_comments_list, name="user_comments_list"),

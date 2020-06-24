@@ -116,6 +116,7 @@ class CategoriesListView(TemplateView):
             *args, **kwargs)
         context['categories_list'] = 'Categories'
         context.update(left_filter())
+        context.update(total_price_items(self.request.user.id))
         return context
 
 
@@ -129,6 +130,21 @@ class LanguagesListView(TemplateView):
             *args, **kwargs)
         context['languages_list'] = 'Languages'
         context.update(left_filter())
+        context.update(total_price_items(self.request.user.id))
+        return context
+
+
+# class returns data for the years list page.
+class YearsListView(TemplateView):
+
+    template_name = 'main/types_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(YearsListView, self).get_context_data(
+            *args, **kwargs)
+        context['years_list'] = 'Years'
+        context.update(left_filter())
+        context.update(total_price_items(self.request.user.id))
         return context
 
 
@@ -142,6 +158,7 @@ class AuthorsListView(TemplateView):
             *args, **kwargs)
         context['authors_list'] = 'Authors'
         context.update(left_filter())
+        context.update(total_price_items(self.request.user.id))
         return context
 
 
@@ -228,7 +245,10 @@ def book_details_view(request, slug):
         rate_system['star5'] = models.Comment.objects.filter(
             book=slug, rating='5').count()
         count = sum(rate_system.values())
-        rate_system['count'] = float(100/count)
+        if count == 0:
+            rate_system['count'] = 0
+        else:
+            rate_system['count'] = float(100/count)
         return(rate_system)
 
     book_comments = models.Comment.objects.filter(
@@ -390,7 +410,7 @@ def comment_add(request, proid):
             data.message = form.cleaned_data['message']
             data.rating = form.cleaned_data['rating']
             data.save()
-            # messages.success(request, "Your review has been sent. Thank You for your interest ")
+            messages.success(request, "Your review has been sent. Thank You for your interest.")
             return HttpResponseRedirect(url)
         else:
             return redirect(url)
@@ -404,8 +424,10 @@ def delete_comment(request, proid):
 
     url = request.META.get('HTTP_REFERER')
     current_user = request.user
-    models.Comment.objects.filter(user_id=current_user.id).delete()
-    messages.success(request, "Your comment has been deleted.")
+    book_name = models.Comment.objects.filter(user_id=current_user.id, id=proid)[0]
+    print(book_name)
+    models.Comment.objects.filter(user_id=current_user.id, id=proid ).delete()
+    messages.success(request, f"Your comment on '{book_name}' has been deleted.")
     return HttpResponseRedirect(url)
 
 

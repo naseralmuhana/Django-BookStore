@@ -14,17 +14,18 @@
                         <a href="{% url 'main:categories_list' %}">Categories</a>
                         <span>{{ category }}</span>
                         {% elif language %}
-                        <a href="#">Languages</a>
+                        <a href="{% url 'main:languages_list' %}">Languages</a>
                         <span>{{ language }}</span>
+                        {% elif year %}
+                        <a href="{% url 'main:years_list' %}">Years</a>
+                        <span>{{ year }}</span>
                         {% elif author %}
                         <a href="#">Authors</a>
                         <span>{{ author }}</span>
                         {% elif book_details %}
                         <a href="{% url 'main:featured_books_list' %}">Books</a>
                         <span>{{ book_details.name }}</span>
-                        {% elif year %}
-                        <a href="#">Years</a>
-                        <span>{{ year }}</span>
+
                         {% elif featured_books %}
                         <span>Featured Books</span>
                         {% elif sales_off_books %}
@@ -35,6 +36,7 @@
                         <span>Books(Z to A Sort)</span>
                         {% elif text %}
                         <span>Search "{{ text }}"</span>
+                        
                         {% elif shopcart_page %}
                         <span>Shoping Cart</span>
                         {% elif favourites %}
@@ -51,7 +53,7 @@
                         <span>Update Profile</span>
                         {% else %}
                         <span>
-                            {{categories_list}}{{languages_list}}{{authors_list}}
+                            {{categories_list}}{{languages_list}}{{authors_list}}{{years_list}}
                         </span>
                         {% endif %}
                     </div>

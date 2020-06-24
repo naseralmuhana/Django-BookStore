@@ -55,8 +55,12 @@
                                         title="{{ rating_average }}">
                                 </td>
                                 <td style="width: 220px;">
+                                    {% if rating_average < 0.2 %}
+                                    <span>({{ book_comments.count }} reviews)</span>
+                                    {% else %}
                                     <span>(Average {{ rating_average }}/5 out of {{ book_comments.count }}
                                         reviews)</span>
+                                    {% endif %}
                                 </td>
                             </tr>
                         </table>

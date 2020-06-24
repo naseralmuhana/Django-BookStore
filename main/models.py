@@ -46,7 +46,6 @@ class Author(models.Model):
 class Year(models.Model):
 
     name = models.CharField(max_length=4, unique=True)
-    image = models.ImageField(upload_to="years-img", null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
 
     def __str__(self):
@@ -117,7 +116,7 @@ class Comment(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.book.name + ' | ' + self.user.username
+        return self.book.name
 
 
 # class for the form of the comment section. we can write it in the forms.py or here.

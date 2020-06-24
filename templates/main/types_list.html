@@ -9,61 +9,93 @@
 <!-- Categories Section Begin -->.
 <section class="categories">
     <div class="container">
+        <div class="checkout__form">
+            <h4>categories</h4>
+        </div>
         <div class="row">
-                {% if categories %}
-                {% for category in categories %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="categories__item__type set-bg" data-setbg="/media/{{ category.image }}">
-                        <ul class="categories__item__pic__hover__type">
-                            <li><a href="{% url 'main:category_books_list' category.slug %}">{{ category.name }}</a></li>
-                        </ul>
-                        <!-- <h5><a href="#">{{ category.name }}</a></h5> -->
-                    </div>
+            {% if categories %}
+            {% for category in categories %}
+            <div class="col-lg-2 col-sm-6">
+                <div class="categories__item__type set-bg" data-setbg="/media/{{ category.image }}"
+                    style="background-size: contain;">
+                    <ul class="categories__item__pic__hover__type">
+                        <li><a href="{% url 'main:category_books_list' category.slug %}">{{ category.name }}</a></li>
+                    </ul>
                 </div>
-                {% endfor %}
-                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>
 <!-- Categories Section End -->
+
 {% elif languages_list %}
-<!-- Categories Section Begin -->
+<!-- languages Section Begin -->
 <section class="categories">
     <div class="container">
+        <div class="checkout__form">
+            <h4>languages</h4>
+        </div>
         <div class="row">
-                {% if languages %}
-                {% for language in languages %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="categories__item__type set-bg" data-setbg="/media/{{ language.image }}">
-                        <ul class="languages__item__pic__hover__type">
-                            <li><a href="#">{{ language.name }}</a></li>
-                        </ul>
-
-                    </div>
+            {% if languages %}
+            {% for language in languages %}
+            <div class="col-lg-2 col-sm-6">
+                <div class="categories__item__type set-bg" data-setbg="/media/{{ language.image }}"
+                    style="background-size: contain;">
+                    <ul class="languages__item__pic__hover__type">
+                        <li><a href="{% url 'main:language_books_list' language.slug %}">{{ language.name }}</a></li>
+                    </ul>
                 </div>
-                {% endfor %}
-                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>
-<!-- Categories Section End -->
+<!-- languages Section End -->
+
+{% elif years_list %}
+<!-- years Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="checkout__form">
+            <h4>years</h4>
+        </div>
+        <div class="row">
+            {% if years %}
+            {% for year in years %}
+            <div class="col-lg-1 col-sm-6">
+                <div class="years_list_style">
+                    <ul>
+                        <li> <a href="{% url 'main:year_books_list' year.slug %}">{{ year.name }}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- years Section End -->
+
 {% elif authors_list %}
 <!-- Categories Section Begin -->
 <section class="categories">
     <div class="container">
         <div class="row">
-                {% if authors %}
-                {% for author in authors %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="categories__item__type set-bg" data-setbg="/media/{{ author.image }}">
-                        <ul class="languages__item__pic__hover__type">
-                            <li><a href="#">{{ author.name }}</a></li>
-                        </ul>
+            {% if authors %}
+            {% for author in authors %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="categories__item__type set-bg" data-setbg="/media/{{ author.image }}">
+                    <ul class="languages__item__pic__hover__type">
+                        <li><a href="#">{{ author.name }}</a></li>
+                    </ul>
 
-                    </div>
                 </div>
-                {% endfor %}
-                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>
