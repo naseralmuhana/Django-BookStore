@@ -8,7 +8,6 @@ from django.views.generic import TemplateView, DetailView, ListView
 
 import json
 from main import models
-from main import forms as main_forms
 from order.models import ShopCart
 from order.views import total_price
 from users import models as users_models
@@ -561,20 +560,3 @@ def paginate_view(request, books):
 
     return books_paginator
 
-
-from django.contrib.auth.decorators import user_passes_test
-
-@user_passes_test(lambda u: u.is_superuser)
-# forms for the admin, if he want to add Book.
-def add_book(request):
- 
-    if request.method == "POST":
-        form = main_forms.AddBookForm(request.POST, request.FILES)
-        if form.is_valid():
-            add_book_form = form.save(commit=False)
-            add_book_form.save()
-            form.save_m2m()
-            return redirect('/')
-    else:
-        form = main_forms.AddBookForm()
-        return render(request, "main/admin_pages/add_record.html", {'form': form})

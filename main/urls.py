@@ -34,7 +34,4 @@ urlpatterns = [
     path('delete-comment/<int:proid>', views.delete_comment, name="delete_comment"),
     path('favourite-books-add/<int:proid>', views.favourite_book_add, name="favourite_book_add"),
 
-    #for admin
-    path('add-book', views.add_book, name="add_book"),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

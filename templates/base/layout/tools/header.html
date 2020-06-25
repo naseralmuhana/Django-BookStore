@@ -31,11 +31,11 @@
                         {% if user.is_superuser %}
                         <li><a href="#">Admin</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'main:add_book' %}">Add Book</a></li>
-                                <li><a href="{% url 'main:categories_list' %}">Add Categories</a></li>
-                                <li><a href="#">Add Authors</a></li>
-                                <li><a href="{% url 'main:languages_list' %}">Add Languages</a></li>
-                                <li><a href="{% url 'main:years_list' %}">Add Years</a></li>
+                                <li><a href="{% url 'admin_view:add_book' %}">Add Book</a></li>
+                                <li><a href="{% url 'admin_view:add_category' %}">Add Category</a></li>
+                                <li><a href="{% url 'admin_view:add_author' %}">Add Author</a></li>
+                                <li><a href="{% url 'admin_view:add_language' %}">Add Language</a></li>
+                                <li><a href="{% url 'admin_view:add_year' %}">Add Year</a></li>
                             </ul>
                         </li>
                         {% endif %}

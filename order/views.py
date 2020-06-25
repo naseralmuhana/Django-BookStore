@@ -66,8 +66,6 @@ def shop_cart_add(request, id):
                 messages.success(
                     request, f'{data.book.name} added to cart. (quantities = {quantity})')
 
-            # request.session['cart_items'] = models.ShopCart.objects.filter(user_id=current_user.id).count() #Count item in shop cart
-
     else:
         if q1 != None:  # Update  quantity to exist product quantity
             q1.quantity += 1

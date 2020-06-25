@@ -107,10 +107,8 @@
                         <li><b>Pages</b> <span>{{ book_details.page }}</span></li>
                         <li><b>Publication date</b>
                             <span>
-                                {{ book_details.Publication_date.day }}/{{ book_details.Publication_date.month }}/
-                                <a href="{% url 'main:year_books_list'  book_details.year.slug %}">
-                                    {{ book_details.Publication_date.year }}
-                                </a>
+                                {{ book_details.Publication_date.day }}/{{ book_details.Publication_date.month }}/<a
+                                    href="{% url 'main:year_books_list'  book_details.year.slug %}">{{ book_details.Publication_date.year }}</a>
                             </span>
                         </li>
                         <li><b>Share on</b>

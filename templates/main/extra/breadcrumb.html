@@ -51,6 +51,17 @@
                         <span>Comments</span>
                         {% elif user_form %}
                         <span>Update Profile</span>
+
+                        {% elif add_book %}
+                        <span>Add Book to the Database</span>
+                        {% elif add_category %}
+                        <span>Add Category to the Database</span>
+                        {% elif add_author %}
+                        <span>Add Author to the Database</span>
+                        {% elif add_language %}
+                        <span>Add Language to the Database</span>
+                        {% elif add_year %}
+                        <span>Add Year to the Database</span>
                         {% else %}
                         <span>
                             {{categories_list}}{{languages_list}}{{authors_list}}{{years_list}}

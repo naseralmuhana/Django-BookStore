@@ -1,0 +1,179 @@
+{% extends "base/main/layout/layout.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block site_title %}
+{% trans "Books List" %}
+{% endblock %}
+{% block content %}
+{% include 'main/extra/breadcrumb.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="add-messages">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% if add_book %}
+                <div class="add-book">
+                    <div class="section-title">
+                        <h3 class="title">Add Book</h3>
+                        ( <p>Everything's have star * is required to fill.</p> )
+                    </div>
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.language|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.year|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.description|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.Publication_date|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.page|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.for_age|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.price|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.discount_price|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.image|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.authors|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.categories|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                </div>
+                {% elif add_category %}
+                <div class="add-category">
+                    <div class="section-title">
+                        <h3 class="title">Add Category</h3>
+                        ( <p>Everything's have star * is required to fill.</p> )
+                    </div>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.image|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                </div>
+                {% elif add_author %}
+                <div class="add-author">
+                    <div class="section-title">
+                        <h3 class="title">Add Author</h3>
+                        ( <p>Everything's have star * is required to fill.</p> )
+                    </div>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.image|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.description|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                </div>
+                {% elif add_language %}
+                <div class="add-language">
+                    <div class="section-title">
+                        <h3 class="title">Add Language</h3>
+                        ( <p>Everything's have star * is required to fill.</p> )
+                    </div>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.image|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                </div>
+                {% elif add_year %}
+                <div class="add-year">
+                    <div class="section-title">
+                        <h3 class="title">Add Year</h3>
+                        ( <p>Everything's have star * is required to fill.</p> )
+                    </div>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+
+                    </div>
+                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                </div>
+
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <br>
+</div>
+
+
+{% endblock %}

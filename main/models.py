@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.shortcuts import reverse
 from django.forms import ModelForm, Textarea
-
+import datetime
 from eCommerce.utils import unique_slug_generator
 
 
@@ -57,8 +57,7 @@ class Book(models.Model):
     name = models.CharField(max_length=250, unique=True)
     image = models.ImageField(upload_to="books-img", blank=True)
     description = models.TextField(null=True, blank=True)
-    Publication_date = models.DateField(
-        null=True, blank=True, help_text='yyyy-mm-dd')
+    Publication_date = models.DateField(default='2020-12-31')
     page = models.IntegerField('Pages number', default=100)
     for_age = models.IntegerField('For ages', default=15)
     price = models.FloatField(default=0.0)
