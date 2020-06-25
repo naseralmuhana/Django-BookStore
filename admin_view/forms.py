@@ -2,7 +2,7 @@ from django import forms
 from main import models as main_models
 
 
-class AddBookForm(forms.ModelForm):
+class BookForm(forms.ModelForm):
 
     image = forms.ImageField(required=True)
     for_age = forms.IntegerField(required=False)
@@ -18,11 +18,11 @@ class AddBookForm(forms.ModelForm):
         fields = "__all__"
         exclude = ["favourite", "slug"]
         widgets = {
-            'Publication_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'placeholder': 'Select a date', 'type': 'date'}),
+            'Publication_date': forms.DateInput(attrs={'placeholder': 'Select a date', 'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
-        super(AddBookForm, self).__init__(*args, **kwargs)
+        super(BookForm, self).__init__(*args, **kwargs)
         self.fields["authors"].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields["authors"].help_text = ""
         self.fields["authors"].queryset = main_models.Author.objects.all()
@@ -31,7 +31,7 @@ class AddBookForm(forms.ModelForm):
         self.fields["categories"].queryset = main_models.Category.objects.all()
 
 
-class AddCategoryForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
 
     image = forms.ImageField(required=True)
 
@@ -41,7 +41,7 @@ class AddCategoryForm(forms.ModelForm):
         exclude = ["slug"]
 
 
-class AddAuthorForm(forms.ModelForm):
+class AuthorForm(forms.ModelForm):
 
     image = forms.ImageField(required=True)
     description = forms.CharField(
@@ -57,7 +57,7 @@ class AddAuthorForm(forms.ModelForm):
         exclude = ["slug"]
 
 
-class AddLanguageForm(forms.ModelForm):
+class LanguageForm(forms.ModelForm):
 
     image = forms.ImageField(required=True)
 
@@ -67,7 +67,7 @@ class AddLanguageForm(forms.ModelForm):
         exclude = ["slug"]
 
 
-class AddYearForm(forms.ModelForm):
+class YearForm(forms.ModelForm):
 
     class Meta:
         model = main_models.Year

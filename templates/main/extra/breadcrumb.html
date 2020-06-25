@@ -62,6 +62,17 @@
                         <span>Add Language to the Database</span>
                         {% elif add_year %}
                         <span>Add Year to the Database</span>
+
+                        {% elif  update_book %}
+                        <span>Update ({{book_name}}) Book</span>
+                        {% elif update_category %}
+                        <span>Update ({{category_name}}) Category</span>
+                        {% elif update_author %}
+                        <span>Update ({{author_name}})  Author</span>
+                        {% elif update_language %}
+                        <span>Update ({{language_name}}) Language</span>
+                        {% elif update_year %}
+                        <span>Update ({{year_name}}) Year</span>
                         {% else %}
                         <span>
                             {{categories_list}}{{languages_list}}{{authors_list}}{{years_list}}

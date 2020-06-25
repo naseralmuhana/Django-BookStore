@@ -218,6 +218,23 @@
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
                                 {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}
                                     <li>
@@ -261,6 +278,23 @@
                             <div class="product__item__pic set-bg" data-setbg="/media/{{ book.image }}">
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                                {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}
@@ -306,6 +340,23 @@
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
                                 {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}
                                     <li>
@@ -349,6 +400,23 @@
                             <div class="product__item__pic set-bg" data-setbg="/media/{{ book.image }}">
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                                {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}
@@ -394,6 +462,23 @@
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
                                 {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}
                                     <li>
@@ -437,6 +522,23 @@
                             <div class="product__item__pic set-bg" data-setbg="/media/{{ book.image }}">
                                 {% if book.discount_price %}
                                 <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                                {% endif %}
+                                {% if user.is_superuser %}
+                                <div class="admin__product__item__discount__percent">
+                                    <div class="admin__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admin_delete__product__item__discount__percent">
+                                    <div class="admin_delete__product__discount__percent">
+                                        <div class="superuser-edit">
+                                            <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                                onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% endif %}
                                 <ul class="product__item__pic__hover">
                                     {% if user in book.favourite.all %}

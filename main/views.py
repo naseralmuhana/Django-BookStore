@@ -432,7 +432,6 @@ def delete_comment(request, proid):
     current_user = request.user
     book_name = models.Comment.objects.filter(
         user_id=current_user.id, id=proid)[0]
-    print(book_name)
     models.Comment.objects.filter(user_id=current_user.id, id=proid).delete()
     messages.success(
         request, f"Your comment on '{book_name}' has been deleted.")

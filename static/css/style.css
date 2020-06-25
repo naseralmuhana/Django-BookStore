@@ -92,7 +92,7 @@ input:focus, select:focus, button:focus, textarea:focus {
 a:hover, a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #ffffff;
+	color: black;
 }
 
 ul, ol {
@@ -127,8 +127,9 @@ ul, ol {
 	content: "";
 	margin: 0 auto;
 }
+
 .section-title a {
-	color: #76323f ;
+	color: #76323f;
 }
 
 .set-bg {
@@ -777,7 +778,7 @@ ul, ol {
 .categories__item__type {
 	height: 270px;
 	position: relative;
-	margin-bottom: 10px;
+	margin-bottom: -74px;
 }
 
 .categories__item h5 {
@@ -1063,7 +1064,6 @@ ul, ol {
 	opacity: 0.8;
 	border-radius: 20px;
 }
-
 
 /* .categories__item__pic__hover__type li a i {
 	position: relative;
@@ -3835,6 +3835,32 @@ a:hover {
 	top: 15px;
 }
 
+.admin__product__item__discount__percent .admin__product__discount__percent {
+	height: 45px;
+	width: 45px;
+	background: #ffffff;
+	border-radius: 50%;
+	font-size: 14px;
+	line-height: 45px;
+	text-align: center;
+	position: absolute;
+	left: 200px;
+	top: 15px;
+}
+
+.admin_delete__product__item__discount__percent .admin_delete__product__discount__percent {
+	height: 45px;
+	width: 45px;
+	background: #ffffff;
+	border-radius: 50%;
+	font-size: 14px;
+	line-height: 45px;
+	text-align: center;
+	position: absolute;
+	left: 145px;
+	top: 15px;
+}
+
 .selectpicker {
 	border: none;
 	line-height: 45px;
@@ -4955,32 +4981,44 @@ table.videos td img {
 	margin-bottom: 10px;
 }
 
-.image_update a{
+.image_update a {
 	color: black !important;
 }
-.image_update a:hover{
+
+.image_update a:hover {
 	color: #76323f !important;
 	font-weight: bold;
 }
 
 .years_list_style {
-    background: #76323f;
-    text-align: center;
-    border-radius: 15px;
+	background: #76323f;
+	text-align: center;
+	border-radius: 15px;
 	margin-bottom: 50px;
-
 }
-.years_list_style ul li{
+
+.years_list_style ul li {
 	list-style-type: none;
 }
-.years_list_style ul li:hover{
+
+.years_list_style ul li:hover {
 	background-color: #fff;
 }
-.years_list_style ul li:hover a{
+
+.years_list_style ul li:hover a {
 	background-color: #fff;
 	color: #76323f !important;
 }
-.years_list_style ul li a{
+
+.years_list_style ul li a {
 	color: #fff !important;
 	font-size: 16px;
+}
+
+.superuser-edit a:hover {
+	color: #76323f !important;
+}
+
+.superuser-edit .delete-link {
+	margin-left: 55%;
 }

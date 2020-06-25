@@ -34,6 +34,23 @@
                             <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
                         </div>
                         {% endif %}
+                        {% if user.is_superuser %}
+                        <div class="admin__product__item__discount__percent">
+                            <div class="admin__product__discount__percent">
+                                <div class="superuser-edit">
+                                    <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin_delete__product__item__discount__percent">
+                            <div class="admin_delete__product__discount__percent">
+                                <div class="superuser-edit">
+                                    <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                        onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                         <ul class="featured__item__pic__hover">
                             {% if user in book.favourite.all %}
                             <li>
@@ -66,6 +83,7 @@
                         {% else %}
                         <h5>${{ book.price }}</h5>
                         {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -81,14 +99,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
-                    role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
                 <div class="section-title">
                     <h2>Featured Books </h2>
                     (<a href="{% url 'main:featured_books_list' %}">View all</a>)
@@ -104,6 +114,23 @@
                         {% if book.discount_price %}
                         <div class="product__item__discount__percent">
                             <div class="product__discount__percent">-{{ book.discount_percent }}%</div>
+                        </div>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <div class="admin__product__item__discount__percent">
+                            <div class="admin__product__discount__percent">
+                                <div class="superuser-edit">
+                                    <a href="{% url 'admin_view:update_book' book.slug %}">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin_delete__product__item__discount__percent">
+                            <div class="admin_delete__product__discount__percent">
+                                <div class="superuser-edit">
+                                    <a href="{% url 'admin_view:delete_book' book.slug %}"
+                                        onclick="return confirm('Delete!\n{{ book.name }}\nAre you Sure?')">Delete</a>
+                                </div>
+                            </div>
                         </div>
                         {% endif %}
                         <ul class="featured__item__pic__hover">

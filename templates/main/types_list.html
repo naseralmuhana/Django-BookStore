@@ -4,7 +4,18 @@
 
 {% block content %}
 {% include 'main/extra/breadcrumb.html' %}
-
+<section class="categories">
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'warning' %}danger{% else %}{{message.tags}}{% endif %}"
+            role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% if categories_list %}
 <!-- Categories Section Begin -->.
 <section class="categories">
@@ -16,12 +27,23 @@
             {% if categories %}
             {% for category in categories %}
             <div class="col-lg-2 col-sm-6">
+                {% if user.is_superuser %}
+                <div class="superuser-edit">
+                    <a href="{% url 'admin_view:update_category' category.slug %}">Edit</a>
+                    <a class="delete-link" href="{% url 'admin_view:delete_category' category.slug %}"
+                        onclick="return confirm('Delete!\n{{ category.name }}\nAre you Sure?')">delete</a>
+                </div>
+                {% endif %}
                 <div class="categories__item__type set-bg" data-setbg="/media/{{ category.image }}"
                     style="background-size: contain;">
                     <ul class="categories__item__pic__hover__type">
-                        <li><a href="{% url 'main:category_books_list' category.slug %}">{{ category.name }}</a></li>
+                        <li>
+                            <a href="{% url 'main:category_books_list' category.slug %}">{{ category.name }}</a>
+                        </li>
                     </ul>
+
                 </div>
+
             </div>
             {% endfor %}
             {% endif %}
@@ -41,6 +63,13 @@
             {% if languages %}
             {% for language in languages %}
             <div class="col-lg-2 col-sm-6">
+                {% if user.is_superuser %}
+                <div class="superuser-edit">
+                    <a href="{% url 'admin_view:update_language' language.slug %}">Edit</a>
+                    <a class="delete-link" href="{% url 'admin_view:delete_language' language.slug %}"
+                        onclick="return confirm('Delete!\n{{ language.name }}\nAre you Sure?')">delete</a>
+                </div>
+                {% endif %}
                 <div class="categories__item__type set-bg" data-setbg="/media/{{ language.image }}"
                     style="background-size: contain;">
                     <ul class="languages__item__pic__hover__type">
@@ -66,6 +95,13 @@
             {% if years %}
             {% for year in years %}
             <div class="col-lg-1 col-sm-6">
+                {% if user.is_superuser %}
+                <div class="superuser-edit">
+                    <a href="{% url 'admin_view:update_year' year.slug %}">Edit</a>
+                    <a class="delete-link" href="{% url 'admin_view:delete_year' year.slug %}"
+                        onclick="return confirm('Delete!\n{{ year.name }}\nAre you Sure?')">delete</a>
+                </div>
+                {% endif %}
                 <div class="years_list_style">
                     <ul>
                         <li> <a href="{% url 'main:year_books_list' year.slug %}">{{ year.name }}</a> </li>
@@ -87,6 +123,13 @@
             {% if authors %}
             {% for author in authors %}
             <div class="col-lg-3 col-sm-6">
+                {% if user.is_superuser %}
+                <div class="superuser-edit">
+                    <a href="{% url 'admin_view:update_author' author.slug %}">Edit</a>
+                    <a class="delete-link" href="{% url 'admin_view:delete_author' author.slug %}"
+                        onclick="return confirm('Delete!\n{{ author.name }}\nAre you Sure?')">delete</a>
+                </div>
+                {% endif %}
                 <div class="categories__item__type set-bg" data-setbg="/media/{{ author.image }}">
                     <ul class="languages__item__pic__hover__type">
                         <li><a href="#">{{ author.name }}</a></li>

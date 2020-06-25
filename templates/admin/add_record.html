@@ -24,10 +24,10 @@
                 {% endif %}
             </div>
             <form method="post" enctype="multipart/form-data">
-                {% if add_book %}
-                <div class="add-book">
+                {% if admin_book %}
+                <div class="add-update-book">
                     <div class="section-title">
-                        <h3 class="title">Add Book</h3>
+                        <h3 class="title">{% if update_book %}Update{% else %}Add{% endif %} Book</h3>
                         ( <p>Everything's have star * is required to fill.</p> )
                     </div>
                     {% csrf_token %}
@@ -77,17 +77,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.authors|as_crispy_field }}
+                            <a href="{% url 'admin_view:add_author' %}">Add Author</a>
                         </div>
                         <div class="col-md-6">
                             {{ form.categories|as_crispy_field }}
+
+                            <a href="{% url 'admin_view:add_category' %}">Add Category</a>
                         </div>
                     </div>
-                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                    <button type="submit"
+                        class="site-btn order-complete-btn">{% if update_book %}Update{% else %}Add{% endif %}</button>
                 </div>
-                {% elif add_category %}
-                <div class="add-category">
+                {% elif admin_category %}
+                <div class="add-update-category">
                     <div class="section-title">
-                        <h3 class="title">Add Category</h3>
+                        <h3 class="title">{% if update_category %}Update{% else %}Add{% endif %} Category</h3>
                         ( <p>Everything's have star * is required to fill.</p> )
                     </div>
                     {% csrf_token %}
@@ -103,12 +107,13 @@
                             {{ form.image|as_crispy_field }}
                         </div>
                     </div>
-                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                    <button type="submit"
+                        class="site-btn order-complete-btn">{% if update_category %}Update{% else %}Add{% endif %}</button>
                 </div>
-                {% elif add_author %}
-                <div class="add-author">
+                {% elif admin_author %}
+                <div class="add-update-author">
                     <div class="section-title">
-                        <h3 class="title">Add Author</h3>
+                        <h3 class="title">{% if update_author %}Update{% else %}Add{% endif %} Author</h3>
                         ( <p>Everything's have star * is required to fill.</p> )
                     </div>
                     {% csrf_token %}
@@ -129,12 +134,13 @@
                             {{ form.description|as_crispy_field }}
                         </div>
                     </div>
-                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                    <button type="submit"
+                        class="site-btn order-complete-btn">{% if update_author %}Update{% else %}Add{% endif %}</button>
                 </div>
-                {% elif add_language %}
-                <div class="add-language">
+                {% elif admin_language %}
+                <div class="add-update-language">
                     <div class="section-title">
-                        <h3 class="title">Add Language</h3>
+                        <h3 class="title">{% if update_language %}Update{% else %}Add{% endif %} Language</h3>
                         ( <p>Everything's have star * is required to fill.</p> )
                     </div>
                     {% csrf_token %}
@@ -149,12 +155,13 @@
                             {{ form.image|as_crispy_field }}
                         </div>
                     </div>
-                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                    <button type="submit"
+                        class="site-btn order-complete-btn">{% if update_language %}Update{% else %}Add{% endif %}</button>
                 </div>
-                {% elif add_year %}
-                <div class="add-year">
+                {% elif admin_year %}
+                <div class="add-update-year">
                     <div class="section-title">
-                        <h3 class="title">Add Year</h3>
+                        <h3 class="title">{% if update_year %}Update{% else %}Add{% endif %} Year</h3>
                         ( <p>Everything's have star * is required to fill.</p> )
                     </div>
                     {% csrf_token %}
@@ -164,9 +171,9 @@
                         </div>
 
                     </div>
-                    <button type="submit" class="site-btn order-complete-btn">Add</button>
+                    <button type="submit"
+                        class="site-btn order-complete-btn">{% if update_year %}Update{% else %}Add{% endif %}</button>
                 </div>
-
                 {% endif %}
             </form>
         </div>

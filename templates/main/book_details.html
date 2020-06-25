@@ -143,6 +143,15 @@
                             title="Add to favourites">
                             <span class="icon_heart_alt"></span></a>
                         {% endif %}
+                        {% if user.is_superuser %}
+                        <a href="{% url 'admin_view:update_book' book_details.slug %}" class="heart-icon"
+                            title="Update Book">
+                            Update Book Info</a>
+
+                        <a href="{% url 'admin_view:delete_book' book_details.slug %}" class="heart-icon"
+                            onclick="return confirm('Delete!\n{{ book_details.name }}\nAre you Sure?')">Delete</a>
+
+                        {% endif %}
                     </form>
 
                 </div>
