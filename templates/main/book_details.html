@@ -143,7 +143,7 @@
                             title="Add to favourites">
                             <span class="icon_heart_alt"></span></a>
                         {% endif %}
-                        {% if user.is_superuser %}
+                        {% if user.is_staff %}
                         <a href="{% url 'admin_view:update_book' book_details.slug %}" class="heart-icon"
                             title="Update Book">
                             Update Book Info</a>

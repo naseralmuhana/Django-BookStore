@@ -8,7 +8,7 @@ from main import models as main_models
 from admin_view import forms as admin_forms
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to add Book.
 def add_book(request):
 
@@ -34,7 +34,7 @@ def add_book(request):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to add Category.
 def add_category(request):
 
@@ -58,7 +58,7 @@ def add_category(request):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to add Author.
 def add_author(request):
 
@@ -82,7 +82,7 @@ def add_author(request):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to add Language.
 def add_language(request):
 
@@ -106,7 +106,7 @@ def add_language(request):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to add Year.
 def add_year(request):
 
@@ -130,7 +130,7 @@ def add_year(request):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to update book.
 def update_book(request, slug):
 
@@ -156,7 +156,7 @@ def update_book(request, slug):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to update Category.
 def update_category(request, slug):
 
@@ -183,7 +183,7 @@ def update_category(request, slug):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to update Author.
 def update_author(request, slug):
 
@@ -210,7 +210,7 @@ def update_author(request, slug):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to update Language.
 def update_language(request, slug):
 
@@ -237,7 +237,7 @@ def update_language(request, slug):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to update Year.
 def update_year(request, slug):
 
@@ -264,7 +264,7 @@ def update_year(request, slug):
         return render(request, "admin/add_record.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to delete Book.
 def delete_book(request, slug):
     url = request.META.get('HTTP_REFERER')
@@ -276,7 +276,7 @@ def delete_book(request, slug):
     return HttpResponseRedirect(url)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to delete Category.
 def delete_category(request, slug):
     url = request.META.get('HTTP_REFERER')
@@ -288,7 +288,7 @@ def delete_category(request, slug):
     return HttpResponseRedirect(url)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to delete Author.
 def delete_author(request, slug):
     url = request.META.get('HTTP_REFERER')
@@ -300,7 +300,7 @@ def delete_author(request, slug):
     return HttpResponseRedirect(url)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to delete Language.
 def delete_language(request, slug):
     url = request.META.get('HTTP_REFERER')
@@ -312,7 +312,7 @@ def delete_language(request, slug):
     return HttpResponseRedirect(url)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff, login_url='/users/login/')
 # forms for the admin, if he want to delete year.
 def delete_year(request, slug):
     url = request.META.get('HTTP_REFERER')

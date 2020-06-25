@@ -25,7 +25,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-@login_required(login_url='/account/login')
+@login_required(login_url='/users/login')
 def profile(request):
 
     context = {
@@ -35,7 +35,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-@login_required(login_url='/account/login')
+@login_required(login_url='/users/login')
 def profile_update(request):
     
     try:

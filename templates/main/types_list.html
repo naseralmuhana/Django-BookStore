@@ -27,7 +27,7 @@
             {% if categories %}
             {% for category in categories %}
             <div class="col-lg-2 col-sm-6">
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <div class="superuser-edit">
                     <a href="{% url 'admin_view:update_category' category.slug %}">Edit</a>
                     <a class="delete-link" href="{% url 'admin_view:delete_category' category.slug %}"
@@ -63,7 +63,7 @@
             {% if languages %}
             {% for language in languages %}
             <div class="col-lg-2 col-sm-6">
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <div class="superuser-edit">
                     <a href="{% url 'admin_view:update_language' language.slug %}">Edit</a>
                     <a class="delete-link" href="{% url 'admin_view:delete_language' language.slug %}"
@@ -95,7 +95,7 @@
             {% if years %}
             {% for year in years %}
             <div class="col-lg-1 col-sm-6">
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <div class="superuser-edit">
                     <a href="{% url 'admin_view:update_year' year.slug %}">Edit</a>
                     <a class="delete-link" href="{% url 'admin_view:delete_year' year.slug %}"
@@ -123,7 +123,7 @@
             {% if authors %}
             {% for author in authors %}
             <div class="col-lg-3 col-sm-6">
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <div class="superuser-edit">
                     <a href="{% url 'admin_view:update_author' author.slug %}">Edit</a>
                     <a class="delete-link" href="{% url 'admin_view:delete_author' author.slug %}"
