@@ -256,20 +256,22 @@ def book_details_view(request, slug):
             rate_system['count'] = float(100/count)
         return(rate_system)
 
-    book_comments = models.Comment.objects.filter(
-        book=slug).order_by('-create_at')
+    book_comments = models.Comment.objects.filter(~Q(user_id=request.user), book=slug).order_by('-create_at')
 
     user_comment = ''
+    comments_count = 0
     if request.user.is_authenticated:
         user_comment = models.Comment.objects.filter(
             user_id=request.user, book=slug)
 
-    profiles = users_models.Profile.objects.all()
+    comments_count = user_comment.count() + book_comments.count()
 
+    profiles = users_models.Profile.objects.all()
     context = {
         'book_details': slug,
         'book_comments': book_comments,
         'user_comment': user_comment,
+        'comments_count': comments_count,
         'related_books': related_books(slug),
         'rating_average': rating_average(slug),
         'rating_system': rating_system(slug),
@@ -391,6 +393,7 @@ def user_comments_list(request):
 
     user_comments = models.Comment.objects.filter(
         user_id=request.user.id).order_by('-create_at')
+
     context = {
         'comments': 'exist',
         "user_comments": user_comments,
@@ -419,6 +422,8 @@ def comment_add(request, proid):
                 request, "Your review has been sent. Thank You for your interest.")
             return HttpResponseRedirect(url)
         else:
+            messages.warning(
+                request, "Your review has not been sent")
             return redirect(url)
     else:
         return HttpResponseRedirect(url)

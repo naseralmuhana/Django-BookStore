@@ -58,7 +58,7 @@
                                     {% if rating_average < 0.2 %}
                                     <span>({{ book_comments.count }} reviews)</span>
                                     {% else %}
-                                    <span>(Average {{ rating_average }}/5 out of {{ book_comments.count }}
+                                    <span>(Average {{ rating_average }}/5 out of {{ comments_count }}
                                         reviews)</span>
                                     {% endif %}
                                 </td>
@@ -165,7 +165,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                aria-selected="false">Reviews <span>({{ book_comments.count }})</span></a>
+                                aria-selected="false">Reviews <span>({{ comments_count }})</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">

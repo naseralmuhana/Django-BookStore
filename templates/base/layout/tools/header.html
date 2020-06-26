@@ -23,7 +23,7 @@
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="{% url 'main:categories_list' %}">Categories</a></li>
-                                <li><a href="#">Authors</a></li>
+                                <li><a href="{% url 'main:authors_list' %}">Authors</a></li>
                                 <li><a href="{% url 'main:languages_list' %}">Languages</a></li>
                                 <li><a href="{% url 'main:years_list' %}">Years</a></li>
                             </ul>
@@ -36,6 +36,7 @@
                                 <li><a href="{% url 'admin_view:add_author' %}">Add Author</a></li>
                                 <li><a href="{% url 'admin_view:add_language' %}">Add Language</a></li>
                                 <li><a href="{% url 'admin_view:add_year' %}">Add Year</a></li>
+                                <li><a href="{% url 'admin:index' %}">Admin PAGE</a></li>
                             </ul>
                         </li>
                         {% endif %}

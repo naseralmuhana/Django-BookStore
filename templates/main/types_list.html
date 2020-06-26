@@ -4,6 +4,7 @@
 
 {% block content %}
 {% include 'main/extra/breadcrumb.html' %}
+
 <section class="categories">
     <div class="container">
         {% if messages %}
@@ -13,9 +14,11 @@
             {{ message }}
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </section>
-{% endif %}
+
+
 {% if categories_list %}
 <!-- Categories Section Begin -->.
 <section class="categories">
@@ -119,22 +122,26 @@
 <!-- Categories Section Begin -->
 <section class="categories">
     <div class="container">
+        <div class="checkout__form">
+            <h4>Authors</h4>
+        </div>
         <div class="row">
             {% if authors %}
             {% for author in authors %}
-            <div class="col-lg-3 col-sm-6">
-                {% if user.is_staff %}
-                <div class="superuser-edit">
-                    <a href="{% url 'admin_view:update_author' author.slug %}">Edit</a>
-                    <a class="delete-link" href="{% url 'admin_view:delete_author' author.slug %}"
-                        onclick="return confirm('Delete!\n{{ author.name }}\nAre you Sure?')">delete</a>
-                </div>
-                {% endif %}
-                <div class="categories__item__type set-bg" data-setbg="/media/{{ author.image }}">
-                    <ul class="languages__item__pic__hover__type">
-                        <li><a href="#">{{ author.name }}</a></li>
-                    </ul>
-
+            <div class="col-lg-2 col-sm-6">
+                <div class="single-author-style">
+                    {% if user.is_staff %}
+                    <div class="superuser-edit">
+                        <a href="{% url 'admin_view:update_author' author.slug %}">Edit</a>
+                        <a class="delete-link" href="{% url 'admin_view:delete_author' author.slug %}"
+                            onclick="return confirm('Delete!\n{{ author.name }}\nAre you Sure?')">delete</a>
+                    </div>
+                    {% endif %}
+                    <a href="#">
+                        <div class="author__item__type set-bg" data-setbg="/media/{{ author.image }}">
+                        </div>
+                    </a>
+                    <a href="#">{{ author.name }}</a>
                 </div>
             </div>
             {% endfor %}

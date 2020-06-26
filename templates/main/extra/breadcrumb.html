@@ -20,7 +20,7 @@
                         <a href="{% url 'main:years_list' %}">Years</a>
                         <span>{{ year }}</span>
                         {% elif author %}
-                        <a href="#">Authors</a>
+                        <a href="{% url 'main:authors_list' %}">Authors</a>
                         <span>{{ author }}</span>
                         {% elif book_details %}
                         <a href="{% url 'main:featured_books_list' %}">Books</a>

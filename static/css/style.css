@@ -780,6 +780,10 @@ ul, ol {
 	position: relative;
 	margin-bottom: -74px;
 }
+.author__item__type {
+	height: 270px;
+	position: relative;
+}
 
 .categories__item h5 {
 	position: absolute;
@@ -5021,4 +5025,8 @@ table.videos td img {
 
 .superuser-edit .delete-link {
 	margin-left: 55%;
+}
+
+.single-author-style{
+	margin-bottom: 30px;
 }

@@ -13,7 +13,7 @@
                     <div class="row" id="post-review-box" style="display:none;">
                         <div class="col-md-12">
                             <h4>You have a review for this book, only one review for each user,
-                                if you wish you can edit your own review.
+                                if you wish you can delete your own review and write a new review.
                             </h4>
                             <div class="text-right">
                                 <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
@@ -47,6 +47,7 @@
                     {% endif %}
                 </div>
             </div>
+
             <div class="col-md-6">
                 <div class="row rating-system">
                     <div class="side">
@@ -113,12 +114,11 @@
 
             </div>
         </div>
-
         <hr>
-        {% if book_comments %}
-        {% for comment in book_comments %}
 
-        {% if user.username == comment.user.username %}
+        {% if user_comment %}
+        {% for comment in user_comment %}
+        
         <div class="book-user-review-item">
             <div class="user-infor">
                 <div class="row">
@@ -145,8 +145,10 @@
                         </p>
                     </div>
                     <div class="col-md-7">
+                        {% if user.username == comment.user.username or  user.is_staff  %}
                         <a href="{% url 'main:delete_comment' comment.id %}" onclick="return confirm('Delete!\nAre you Sure?')">
                             <span class="icon_close_alt2" title="Delete book"></span></a>
+                        {% endif %}
                     </div>
 
                 </div>
@@ -154,6 +156,50 @@
             <p>{{ comment.message }}</p>
         </div>
 
+        <br>
+        <hr>
+        {% endfor %}
+        {% endif %}
+        
+        {% if book_comments %}
+        {% for comment in book_comments %}
+        
+        <div class="book-user-review-item">
+            <div class="user-infor">
+                <div class="row">
+                    {% for profile in profiles %}
+                    {% if profile.user.username == comment.user.username %}
+                    <div class="col-md-2 comment-form">
+                        <img src="/media/{% if profile.image %}{{ profile.image }}{% else %}default.png{% endif %}"
+                            alt="" class="user-image-comment">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="col-md-3">
+                        <div class="no-star">
+                            <i class="fa fa-star{% if comment.rating >= 1 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 2 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 3 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 4 %} checked{% endif %}"></i>
+                            <i class="fa fa-star{% if comment.rating >= 5 %} checked{% endif %}"></i>
+                            <!-- <i class="fa fa-star-outline"></i> -->
+                        </div>
+
+                        <p class="time">
+                            {{ comment.create_at }} by {{ comment.user.username }}
+                        </p>
+                    </div>
+                    <div class="col-md-7">
+                        {% if user.username == comment.user.username or  user.is_staff  %}
+                        <a href="{% url 'main:delete_comment' comment.id %}" onclick="return confirm('Delete!\nAre you Sure?')">
+                            <span class="icon_close_alt2" title="Delete book"></span></a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            <p>{{ comment.message }}</p>
+        </div>
 
         <!-- <div class="row">
             <div class="col-md-10">
@@ -184,43 +230,6 @@
                 </div>
             </div>
         </div> -->
-
-        {% else %}
-
-        <div class="book-user-review-item">
-            <div class="user-infor">
-                <div class="row">
-                    {% for profile in profiles %}
-                    {% if profile.user.username == comment.user.username %}
-                    <div class="col-md-2 comment-form">
-                        <img src="/media/{% if profile.image %}{{ profile.image }}{% else %}default.png{% endif %}"
-                            alt="" class="user-image-comment">
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                    <div class="col-md-3">
-                        <div class="no-star">
-                            <i class="fa fa-star{% if comment.rating >= 1 %} checked{% endif %}"></i>
-                            <i class="fa fa-star{% if comment.rating >= 2 %} checked{% endif %}"></i>
-                            <i class="fa fa-star{% if comment.rating >= 3 %} checked{% endif %}"></i>
-                            <i class="fa fa-star{% if comment.rating >= 4 %} checked{% endif %}"></i>
-                            <i class="fa fa-star{% if comment.rating >= 5 %} checked{% endif %}"></i>
-                            <!-- <i class="fa fa-star-outline"></i> -->
-                        </div>
-
-                        <p class="time">
-                            {{ comment.create_at }} by {{ comment.user.username }}
-                        </p>
-                    </div>
-                    <div class="col-md-7"></div>
-
-                </div>
-            </div>
-            <p>{{ comment.message }}</p>
-        </div>
-
-
-        {% endif %}
         <br>
         <hr>
         {% endfor %}
