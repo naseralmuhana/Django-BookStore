@@ -172,7 +172,7 @@ class SearchView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         text_before = request.GET['search_text']
-        if '(Author)' in text_before or '(Book)' in text_before or '(Category)' in text_before:
+        if '(Author)' in text_before or '(Book)' in text_before or '(Category)' in text_before or '(Language)' in text_before or '(Year)' in text_before:
             text = self.strip_text(text_before)
         else:
             text = text_before
@@ -180,6 +180,8 @@ class SearchView(TemplateView):
         search_results = []
         author_name = models.Author.objects.filter(Q(name__icontains=text))
         category_name = models.Category.objects.filter(Q(name__icontains=text))
+        language_name = models.Language.objects.filter(Q(name__icontains=text))
+        year_name = models.Year.objects.filter(Q(name__icontains=text))
         if text:
             if author_name:
                 search_results = models.Book.objects.filter(
@@ -187,6 +189,12 @@ class SearchView(TemplateView):
             elif category_name:
                 search_results = models.Book.objects.filter(
                     categories=category_name[0])
+            elif language_name:
+                search_results = models.Book.objects.filter(
+                    language=language_name[0])
+            elif year_name:
+                search_results = models.Book.objects.filter(
+                    year=year_name[0])
             else:
                 search_results = models.Book.objects.filter(
                     Q(name__icontains=text))
@@ -256,7 +264,8 @@ def book_details_view(request, slug):
             rate_system['count'] = float(100/count)
         return(rate_system)
 
-    book_comments = models.Comment.objects.filter(~Q(user_id=request.user), book=slug).order_by('-create_at')
+    book_comments = models.Comment.objects.filter(
+        ~Q(user_id=request.user), book=slug).order_by('-create_at')
 
     user_comment = ''
     comments_count = 0
@@ -517,6 +526,8 @@ def autoComplete_search(request):
         books = models.Book.objects.filter(name__icontains=q)
         authors = models.Author.objects.filter(name__icontains=q)
         categories = models.Category.objects.filter(name__icontains=q)
+        languages = models.Language.objects.filter(name__icontains=q)
+        years = models.Year.objects.filter(name__icontains=q)
         results = []
         for book in books:
             book_json = {}
@@ -530,6 +541,14 @@ def autoComplete_search(request):
             category_json = {}
             category_json = category.name + ' (Category)'
             results.append(category_json)
+        for language in languages:
+            language_json = {}
+            language_json = language.name + ' (Language)'
+            results.append(language_json)
+        for year in years:
+            year_json = {}
+            year_json = year.name + ' (Year)'
+            results.append(year_json)
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -563,4 +582,3 @@ def paginate_view(request, books):
         books_paginator = paginator.page(paginator.num_pages)
 
     return books_paginator
-
