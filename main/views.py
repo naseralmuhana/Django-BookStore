@@ -264,16 +264,18 @@ def book_details_view(request, slug):
             rate_system['count'] = float(100/count)
         return(rate_system)
 
-    book_comments = models.Comment.objects.filter(
-        ~Q(user_id=request.user), book=slug).order_by('-create_at')
-
     user_comment = ''
     comments_count = 0
     if request.user.is_authenticated:
+        book_comments = models.Comment.objects.filter(
+            ~Q(user_id=request.user), book=slug).order_by('-create_at')
         user_comment = models.Comment.objects.filter(
             user_id=request.user, book=slug)
-
-    comments_count = user_comment.count() + book_comments.count()
+        comments_count = user_comment.count() + book_comments.count()
+    else:
+        book_comments = models.Comment.objects.filter(
+            book=slug).order_by('-create_at')
+        comments_count = book_comments.count()
 
     profiles = users_models.Profile.objects.all()
     context = {
